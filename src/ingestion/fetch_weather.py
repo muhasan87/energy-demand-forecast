@@ -7,13 +7,9 @@ import os
 load_dotenv()
 
 
-def fetch_weather(latitude=-33.8688, longitude=151.2093, days_back=90):
-    """
-    Fetch hourly historical weather data from Open-Meteo.
-    Default location: Sydney, Australia.
-    """
-    end_date = datetime.today().strftime("%Y-%m-%d")
-    start_date = (datetime.today() - timedelta(days=days_back)).strftime("%Y-%m-%d")
+def fetch_weather(latitude=-33.8688, longitude=151.2093):
+    start_date = "2025-01-01"
+    end_date = "2025-12-31"
 
     url = "https://archive-api.open-meteo.com/v1/archive"
 
