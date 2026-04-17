@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+*.egg-info/
+
+# Data (don't commit raw data to GitHub)
+data/raw/
+data/processed/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# AWS credentials (important — never commit these)
+.aws/
+*.pem
+
+# VS Code
+.vscode/
