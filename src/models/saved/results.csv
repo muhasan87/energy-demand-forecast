@@ -1,0 +1,4 @@
+model,rmse
+XGBoost,763.3708236127345
+Random Forest,926.5277857596003
+Linear Regression,1627.5353831380894
