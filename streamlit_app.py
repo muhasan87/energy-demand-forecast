@@ -31,7 +31,7 @@ st.markdown(
 )
 
 # ── API URL ───────────────────────────────────────────────
-API_URL = "http://54.91.10.150:8000"
+API_URL = "http://54.208.26.231:8000"
 
 
 # ── Helper functions ──────────────────────────────────────
@@ -121,8 +121,9 @@ st.sidebar.markdown("**Data:** AEMO + Open-Meteo 2025")
 st.sidebar.divider()
 st.sidebar.markdown("*Built by Muhammad Halidh*")
 st.sidebar.markdown(
-    "[GitHub](https://github.com/muhasan87/energy-demand-forecast) | [API Docs](http://54.91.10.150:8000/docs)"
+    "[GitHub](https://github.com/muhasan87/energy-demand-forecast) | [API Docs](http://54.208.26.231:8000/docs)"
 )
+
 
 # ════════════════════════════════════════════════════════════
 # PAGE 1 — DASHBOARD

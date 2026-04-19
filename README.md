@@ -8,8 +8,9 @@
 > An end-to-end machine learning pipeline that predicts hourly electricity demand 
 > for New South Wales, Australia using real weather data and historical energy consumption.
 
-🌐 **Live App:** http://54.91.10.150:8501  
-🔗 **Live API:** http://54.91.10.150:8000/docs
+🌐 **Live App:** http://54.208.26.231:8501  
+🔗 **Live API:** http://54.208.26.231:8000/docs
+
 
 ---
 
