@@ -6,11 +6,11 @@
 ![MAPE](https://img.shields.io/badge/MAPE-2.79%25-brightgreen)
 
 > An end-to-end machine learning pipeline that predicts hourly electricity demand 
-> for New South Wales, Australia using real weather data and historical energy consumption.
+> for New South Wales, Australia using real weather data and live grid readings from AEMO.
 
 🌐 **Live App:** http://54.208.26.231:8501  
-🔗 **Live API:** http://54.208.26.231:8000/docs
-
+🔗 **Live API:** http://54.208.26.231:8000/docs  
+💻 **GitHub:** https://github.com/muhasan87/energy-demand-forecast
 
 ---
 
@@ -21,8 +21,20 @@ electricity demand data from AEMO (Australian Energy Market Operator), engineers
 meaningful features, trains and evaluates multiple ML models, and serves live predictions 
 through an interactive web application deployed on AWS EC2.
 
+Live NSW grid data is fetched automatically from AEMO every time a prediction is made — 
+providing real demand context (current, yesterday, last week) as model inputs.
+
 **The core question:** Given the weather conditions and time of day, how much 
 electricity will NSW need in the next hour?
+
+---
+
+## Live app pages
+
+- **Dashboard** — model performance metrics and interactive evaluation charts
+- **Demand Simulator** — adjust weather conditions to simulate any scenario, live AEMO grid data fetched automatically
+- **24hr Forecast** — automatically forecasts next 24 hours using Open-Meteo weather forecasts and recursive predictions
+- **Model Journey** — documents all three stages of model development with before/after comparisons
 
 ---
 
@@ -41,12 +53,37 @@ electricity will NSW need in the next hour?
 
 ---
 
+## Architecture
+Open-Meteo API          AEMO (monthly CSVs)
+↓                        ↓
+fetch_weather.py         fetch_energy.py
+↓                        ↓
+data/raw/weather.csv    data/raw/energy.csv
+↓                ↓
+build_features.py (19 features)
+↓
+data/processed/features.csv
+↓
+train.py
+↓
+XGBoost model (.pkl)
+↓
+FastAPI (port 8000)
+↓
+Streamlit app (port 8501)
+↓
+AWS EC2 (always on)
+Automation:
+EventBridge → Lambda → S3 → EC2 cron job → energy.csv updated monthly
+
+---
+
 ## Model performance
 
 | Metric | Value | Benchmark |
 |---|---|---|
 | RMSE | 259.37 MW | Industry standard 300–500 MW ✅ |
-| MAE | 180.16 MW | — |
+| MAE | 180.16 MW | 2.5% of average NSW demand ✅ |
 | MAPE | 2.79% | Under 5% is strong ✅ |
 | Overfit gap | 102 MW | Healthy generalisation ✅ |
 
@@ -79,6 +116,26 @@ Key improvement came from adding lag features — giving the model memory of pre
 
 ---
 
+## Project structure
+energy-demand-forecast/
+├── data/
+│   ├── raw/              ← AEMO and weather CSVs
+│   └── processed/        ← merged features and predictions
+├── notebooks/            ← EDA and experimentation
+├── screenshots/          ← final model evaluation plots
+├── screenshots_round1/   ← baseline model plots
+├── src/
+│   ├── ingestion/        ← fetch_weather.py, fetch_energy.py
+│   ├── features/         ← build_features.py
+│   ├── models/           ← train.py, evaluate.py
+│   └── api/              ← main.py (FastAPI)
+├── streamlit_app.py      ← web application
+├── update_energy.sh      ← EC2 cron script (pulls from S3)
+├── requirements.txt
+└── README.md
+
+---
+
 ## Data sources
 
 - **Weather:** Open-Meteo API — free hourly historical and forecast weather for Sydney
@@ -94,9 +151,20 @@ cd energy-demand-forecast
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+
+# Download data
 python src/ingestion/fetch_weather.py
 python src/ingestion/fetch_energy.py
+
+# Build features
 python src/features/build_features.py
+
+# Train model
 python src/models/train.py
+
+# Run API
+uvicorn src.api.main:app --reload
+
+# Run app (in a separate terminal)
 streamlit run streamlit_app.py
 ```
