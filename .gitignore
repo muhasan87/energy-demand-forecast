@@ -19,3 +19,6 @@ data/processed/
 
 # VS Code
 .vscode/
+
+src/models/saved/linear_regression.pkl
+src/models/saved/random_forest.pkl
