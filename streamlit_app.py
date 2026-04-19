@@ -31,7 +31,7 @@ st.markdown(
 )
 
 # ── API URL ───────────────────────────────────────────────
-API_URL = "https://energy-demand-forecast-hgmm.onrender.com"
+API_URL = "http://54.91.10.150:8000"
 
 
 # ── Helper functions ──────────────────────────────────────
@@ -119,9 +119,9 @@ st.sidebar.markdown("**Model:** XGBoost")
 st.sidebar.markdown("**MAPE:** 2.79%")
 st.sidebar.markdown("**Data:** AEMO + Open-Meteo 2025")
 st.sidebar.divider()
-st.sidebar.markdown("*Built by Muhammad Hasan*")
+st.sidebar.markdown("*Built by Muhammad Halidh*")
 st.sidebar.markdown(
-    "[GitHub](https://github.com/muhasan87/energy-demand-forecast) | [API Docs](https://energy-demand-forecast-hgmm.onrender.com/docs)"
+    "[GitHub](https://github.com/muhasan87/energy-demand-forecast) | [API Docs](http://54.91.10.150:8000/docs)"
 )
 
 # ════════════════════════════════════════════════════════════

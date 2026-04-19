@@ -1,12 +1,15 @@
 # Energy Demand Forecasting Pipeline 🔋
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
-![AWS](https://img.shields.io/badge/AWS-Lambda%20%7C%20S3-orange)
+![AWS](https://img.shields.io/badge/AWS-EC2%20%7C%20S3%20%7C%20Lambda-orange)
 ![XGBoost](https://img.shields.io/badge/Model-XGBoost-green)
 ![MAPE](https://img.shields.io/badge/MAPE-2.79%25-brightgreen)
 
 > An end-to-end machine learning pipeline that predicts hourly electricity demand 
 > for New South Wales, Australia using real weather data and historical energy consumption.
+
+🌐 **Live App:** http://54.91.10.150:8501  
+🔗 **Live API:** http://54.91.10.150:8000/docs
 
 ---
 
@@ -15,8 +18,7 @@
 This pipeline ingests real hourly weather data from the Open-Meteo API and historical 
 electricity demand data from AEMO (Australian Energy Market Operator), engineers 
 meaningful features, trains and evaluates multiple ML models, and serves live predictions 
-through an interactive web application — automated through AWS cloud infrastructure and 
-visualised in a Tableau Public dashboard.
+through an interactive web application deployed on AWS EC2.
 
 **The core question:** Given the weather conditions and time of day, how much 
 electricity will NSW need in the next hour?
@@ -27,13 +29,56 @@ electricity will NSW need in the next hour?
 
 | Layer | Technology |
 |---|---|
-| Data ingestion | Open-Meteo API, AEMO, AWS Lambda, EventBridge |
-| Raw storage | AWS S3 |
+| Data ingestion | Open-Meteo API, AEMO |
 | Feature engineering | Python, Pandas |
 | ML models | Scikit-learn, XGBoost |
-| Web app | Streamlit |
 | REST API | FastAPI |
-| Workflow modelling | Camunda BPMN |
+| Web app | Streamlit |
+| Deployment | AWS EC2 |
+| Automation (planned) | AWS Lambda, S3, EventBridge |
+| Workflow modelling (planned) | Camunda BPMN |
 | Version control | Git, GitHub |
 
-🔗 **Live API:** https://energy-demand-forecast-hgmm.onrender.com/docs
+---
+
+## Model performance
+
+| Metric | Value | Benchmark |
+|---|---|---|
+| RMSE | 259.37 MW | Industry standard 300–500 MW ✅ |
+| MAE | 180.16 MW | — |
+| MAPE | 2.79% | Under 5% is strong ✅ |
+| Overfit gap | 102 MW | Healthy generalisation ✅ |
+
+---
+
+## Model development journey
+
+The model went through three stages of improvement:
+
+| Stage | Test RMSE | MAPE | Overfit Gap | Features |
+|---|---|---|---|---|
+| Baseline XGBoost | 812 MW | 8.06% | 626 MW | 10 |
+| Hyperparameter tuning | 763 MW | 8.06% | 411 MW | 10 |
+| Feature engineering | 259 MW | 2.79% | 102 MW | 19 |
+
+Key improvement came from adding lag features — giving the model memory of previous demand values — plus public holiday flags, season indicators, and extreme heat flags.
+
+---
+
+## Project structure
+energy-demand-forecast/
+├── data/
+│   ├── raw/          ← AEMO and weather CSVs
+│   └── processed/    ← merged features and predictions
+├── notebooks/        ← EDA and experimentation
+├── screenshots/      ← model evaluation plots
+├── screenshots_round1/ ← baseline model plots
+├── src/
+│   ├── ingestion/    ← fetch_weather.py, fetch_energy.py
+│   ├── features/     ← build_features.py
+│   ├── models/       ← train.py, evaluate.py
+│   └── api/          ← main.py (FastAPI)
+├── streamlit_app.py  ← web application
+├── requirements.txt
+└── README.md
