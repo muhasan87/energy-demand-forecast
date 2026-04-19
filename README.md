@@ -36,7 +36,7 @@ electricity will NSW need in the next hour?
 | REST API | FastAPI |
 | Web app | Streamlit |
 | Deployment | AWS EC2 |
-| Automation (planned) | AWS Lambda, S3, EventBridge |
+| Automation | AWS Lambda, S3, EventBridge |
 | Version control | Git, GitHub |
 
 ---
