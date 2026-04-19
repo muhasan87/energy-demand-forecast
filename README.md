@@ -54,27 +54,31 @@ electricity will NSW need in the next hour?
 ---
 
 ## Architecture
+
+```
 Open-Meteo API          AEMO (monthly CSVs)
-↓                        ↓
+      ↓                        ↓
 fetch_weather.py         fetch_energy.py
-↓                        ↓
+      ↓                        ↓
 data/raw/weather.csv    data/raw/energy.csv
-↓                ↓
-build_features.py (19 features)
-↓
-data/processed/features.csv
-↓
-train.py
-↓
-XGBoost model (.pkl)
-↓
-FastAPI (port 8000)
-↓
-Streamlit app (port 8501)
-↓
-AWS EC2 (always on)
+            ↓                ↓
+       build_features.py (19 features)
+                ↓
+     data/processed/features.csv
+                ↓
+            train.py
+                ↓
+        XGBoost model (.pkl)
+                ↓
+         FastAPI (port 8000)
+                ↓
+        Streamlit (port 8501)
+                ↓
+          AWS EC2 (always on)
+
 Automation:
-EventBridge → Lambda → S3 → EC2 cron job → energy.csv updated monthly
+EventBridge → Lambda → S3 → EC2 cron → energy.csv updated monthly
+```
 
 ---
 
@@ -117,6 +121,8 @@ Key improvement came from adding lag features — giving the model memory of pre
 ---
 
 ## Project structure
+
+```
 energy-demand-forecast/
 ├── data/
 │   ├── raw/              ← AEMO and weather CSVs
@@ -130,10 +136,10 @@ energy-demand-forecast/
 │   ├── models/           ← train.py, evaluate.py
 │   └── api/              ← main.py (FastAPI)
 ├── streamlit_app.py      ← web application
-├── update_energy.sh      ← EC2 cron script (pulls from S3)
+├── update_energy.sh      ← EC2 cron script
 ├── requirements.txt
 └── README.md
-
+```
 ---
 
 ## Data sources
