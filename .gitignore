@@ -8,7 +8,7 @@ venv/
 
 # Data (don't commit raw data to GitHub)
 data/raw/
-data/processed/
+
 
 # Jupyter checkpoints
 .ipynb_checkpoints/
