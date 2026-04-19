@@ -36,7 +36,6 @@ electricity will NSW need in the next hour?
 | Web app | Streamlit |
 | Deployment | AWS EC2 |
 | Automation (planned) | AWS Lambda, S3, EventBridge |
-| Workflow modelling (planned) | Camunda BPMN |
 | Version control | Git, GitHub |
 
 ---
@@ -66,19 +65,37 @@ Key improvement came from adding lag features — giving the model memory of pre
 
 ---
 
-## Project structure
-energy-demand-forecast/
-├── data/
-│   ├── raw/          ← AEMO and weather CSVs
-│   └── processed/    ← merged features and predictions
-├── notebooks/        ← EDA and experimentation
-├── screenshots/      ← model evaluation plots
-├── screenshots_round1/ ← baseline model plots
-├── src/
-│   ├── ingestion/    ← fetch_weather.py, fetch_energy.py
-│   ├── features/     ← build_features.py
-│   ├── models/       ← train.py, evaluate.py
-│   └── api/          ← main.py (FastAPI)
-├── streamlit_app.py  ← web application
-├── requirements.txt
-└── README.md
+## Model evaluation plots
+
+### Actual vs predicted demand
+![Actual vs Predicted](screenshots/01_predicted_vs_actual.png)
+
+### Prediction error by hour of day
+![Error by Hour](screenshots/03_error_by_hour.png)
+
+### Feature importance
+![Feature Importance](screenshots/06_feature_importance.png)
+
+---
+
+## Data sources
+
+- **Weather:** Open-Meteo API — free hourly historical and forecast weather for Sydney
+- **Energy:** AEMO Aggregated Price and Demand Data — real NSW electricity demand 2025–2026
+
+---
+
+## How to run locally
+
+```bash
+git clone https://github.com/muhasan87/energy-demand-forecast.git
+cd energy-demand-forecast
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python src/ingestion/fetch_weather.py
+python src/ingestion/fetch_energy.py
+python src/features/build_features.py
+python src/models/train.py
+streamlit run streamlit_app.py
+```
