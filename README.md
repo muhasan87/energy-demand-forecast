@@ -34,5 +34,6 @@ electricity will NSW need in the next hour?
 | Web app | Streamlit |
 | REST API | FastAPI |
 | Workflow modelling | Camunda BPMN |
-| Dashboard | Tableau Public |
 | Version control | Git, GitHub |
+
+🔗 **Live API:** https://energy-demand-forecast-hgmm.onrender.com/docs
