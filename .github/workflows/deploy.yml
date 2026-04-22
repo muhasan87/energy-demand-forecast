@@ -18,7 +18,9 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ubuntu/energy-demand-forecast
-            git pull origin main
+            git fetch origin
+            git reset --hard origin/main
+            sudo systemctl daemon-reload
             sudo systemctl restart fastapi
             sudo systemctl restart streamlit
             echo "Deployment complete - $(date)"
