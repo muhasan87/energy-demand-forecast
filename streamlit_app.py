@@ -128,7 +128,7 @@ st.sidebar.markdown(
 # ════════════════════════════════════════════════════════════
 # PAGE 1 — DASHBOARD
 # ════════════════════════════════════════════════════════════
-if page == "📊 Dashboard":
+if page == "Dashboard":
     st.title("NSW Energy Demand — Model Performance Dashboard")
     st.markdown("*XGBoost model trained on 2025 AEMO data*")
 
@@ -237,7 +237,7 @@ if page == "📊 Dashboard":
 # ════════════════════════════════════════════════════════════
 # PAGE 2 — PREDICTION TOOL
 # ════════════════════════════════════════════════════════════
-elif page == "⚡ Demand Simulator":
+elif page == "Demand Simulator":
     st.title("NSW Energy Demand Predictor")
     st.markdown(
         "Adjust the weather conditions and time below to simulate any scenario — the model will predict what NSW electricity demand would be under those exact conditions. Live grid data is automatically fetched from AEMO to provide real context."
@@ -365,7 +365,7 @@ elif page == "⚡ Demand Simulator":
 # ════════════════════════════════════════════════════════════
 # PAGE 3 — 24HR FORECAST
 # ════════════════════════════════════════════════════════════
-elif page == "📅 24hr Forecast":
+elif page == "24hr Forecast":
     st.title("24-Hour NSW Energy Demand Forecast")
     st.markdown(
         "Automatically forecasts hourly NSW electricity demand using real weather forecasts from Open-Meteo and live grid data from AEMO."
@@ -556,7 +556,7 @@ elif page == "📅 24hr Forecast":
 # ════════════════════════════════════════════════════════════
 # PAGE 4 — MODEL JOURNEY
 # ════════════════════════════════════════════════════════════
-elif page == "📈 Model Journey":
+elif page == "Model Journey":
     st.title("Model Development Journey")
     st.markdown(
         "This project went through three stages of improvement — from a basic baseline to a production-ready forecasting model."
