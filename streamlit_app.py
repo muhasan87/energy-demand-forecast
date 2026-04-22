@@ -112,7 +112,7 @@ st.sidebar.markdown(
 st.sidebar.divider()
 st.sidebar.markdown("### Navigate")
 page = st.sidebar.radio(
-    "", ["📊 Dashboard", "⚡ Demand Simulator", "📅 24hr Forecast", "📈 Model Journey"]
+    "", ["Dashboard", "Demand Simulator", "24hr Forecast", "Model Journey"]
 )
 st.sidebar.divider()
 st.sidebar.markdown("**Model:** XGBoost")
