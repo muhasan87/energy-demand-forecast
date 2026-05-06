@@ -155,7 +155,7 @@ def evaluate():
     plt.savefig("screenshots/06_feature_importance.png")
     plt.close()
     print("Saved plot 6 — feature importance")
-
+    importance_df.to_csv("data/processed/feature_importance.csv", index=False)
     print("\nAll plots saved to screenshots/")
     return results_df, importance_df
 
