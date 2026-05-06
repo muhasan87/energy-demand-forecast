@@ -120,12 +120,27 @@ Key improvement came from adding lag features — giving the model memory of pre
 
 ---
 
+## 📊 Power BI Dashboard
+
+An interactive Power BI version of the evaluation plots above — built so the same analysis can be filtered, sliced, and explored dynamically rather than viewed as static images. KPI cards recalculate as you adjust the date range, and visuals cross-filter against each other.
+
+![Energy Demand Dashboard](dashboard/dashboardpic.png)
+
+**Files:**
+- `dashboard/energydemanddash.pbix` — open with [Power BI Desktop](https://powerbi.microsoft.com/en-us/desktop/) to interact
+- `dashboard/dashboardpic.png` — static preview (above)
+- 📹 Walkthrough video: *coming soon*
+
+---
+
 ## Project structure
 
 ```
 energy-demand-forecast/
+├── .github/workflows/    ← CI/CD pipeline
+├── dashboard/            ← Power BI dashboard (.pbix + screenshot)
 ├── data/
-│   ├── raw/              ← AEMO and weather CSVs
+│   ├── raw/              ← AEMO and weather CSVs (local only, gitignored)
 │   └── processed/        ← merged features and predictions
 ├── notebooks/            ← EDA and experimentation
 ├── screenshots/          ← final model evaluation plots
@@ -137,6 +152,7 @@ energy-demand-forecast/
 │   └── api/              ← main.py (FastAPI)
 ├── streamlit_app.py      ← web application
 ├── update_energy.sh      ← EC2 cron script
+├── Procfile              ← Render deployment config
 ├── requirements.txt
 └── README.md
 ```
